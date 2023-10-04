@@ -17,7 +17,7 @@ if __name__ == "__main__":
     session.query(Director).delete()
     session.query(Movie).delete()
 
-    movie_genre=['Action','Adventure','Mystery','Comedy','Drama','Fantasy','Thriller','Crime','Science Fiction']
+    movie_genre=['Action','Adventure','Mystery','Comedy','Drama','Fantasy','Thriller','Crime','Science-Fiction']
     
     available_movie_names=['The Shawshank Redemption','Interstellar', 'Forrest Gump','Saving Private Ryan','Goodfellas', 
         'Back to the Future', 'Alien', 'The Graduate','The Usual Suspects', 'Back to the Future', 'The Breakfast Club',
