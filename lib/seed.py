@@ -2,7 +2,7 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Genre,Director,Movie,genre_director
+from models import Genre,Director,Movie
 from faker import Faker
 import random
 
@@ -11,7 +11,6 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
     
-
     fake=Faker()
 
     session.query(Genre).delete()
@@ -60,9 +59,9 @@ if __name__ == "__main__":
             genre=random.choice(genres)
 
             #check is rlshp is in set already:
-            if(director.id,genre.id) not in director_genre_relationship:
-                director_genre_relationship.add((director.id,genre.id))
-                session.commit()
+            # if(director.id,genre.id) not in director_genre_relationship:
+            #     director_genre_relationship.add((director.id,genre.id))
+                
 
              # Check if there are available movie names
             if available_movie_names:
@@ -74,12 +73,14 @@ if __name__ == "__main__":
             movie=Movie(
                 movie_name=movie_name,
                 genre=genre.genre_name,
-                overview=fake.text(),
+                overview=fake.sentence(),
                 director=f'{director.first_name} {director.last_name}',
                 genre_id=genre.id,
                 director_id=director.id
             )
             movies.append(movie)
+
+        
 
 
     session.bulk_save_objects(movies)
