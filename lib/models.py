@@ -16,6 +16,7 @@ genre_director=Table(
 
 class Movie(Base):
     __tablename__='movies'
+
     id=Column(Integer, primary_key=True)
     movie_name=Column(String)
     genre=Column(String)
@@ -29,21 +30,23 @@ class Movie(Base):
 
 class Genre(Base):
     __tablename__='genres'
+
     id=Column(Integer, primary_key=True)
     genre_name=Column(String)
 
     #relationships
-    movies=relationship('Movie', backref=backref('genre'))
+    movies=relationship('Movie', backref=backref('genre_movie'))
     directors=relationship('Director', secondary=genre_director, back_populates='genres')
 
 class Director(Base):
     __tablename__='directors'
+    
     id=Column(Integer, primary_key=True)
     first_name=Column(String)
     last_name=Column(String)
 
     #relationship
-    movies=relationship('Movie', backref=backref('director'))
+    movies=relationship('Movie', backref=backref('director_movie'))
     genres=relationship('Genre', secondary=genre_director, back_populates='directors')
     
 
