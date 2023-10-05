@@ -58,12 +58,6 @@ if __name__ == "__main__":
             director=random.choice(directors)
             genre=random.choice(genres)
 
-            #check is rlshp is in set already:
-            # if(director.id,genre.id) not in director_genre_relationship:
-            #     director_genre_relationship.add((director.id,genre.id))
-                
-
-             # Check if there are available movie names
             if available_movie_names:
                 movie_name = random.choice(available_movie_names)
                 available_movie_names.remove(movie_name)  # Remove the used movie name

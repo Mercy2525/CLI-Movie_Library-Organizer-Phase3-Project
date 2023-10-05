@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer,String, Table, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base, backref, relationship,sessionmaker
-
+import random
 Base=declarative_base()
 engine=create_engine('sqlite:///movies.db')
 Session=sessionmaker(bind=engine)
@@ -31,23 +31,27 @@ class Movie(Base):
 
     #String representation for Movie
     def __repr__(self):
-        return f"Title: {self.movie_name}, Genre: {self.genre}, Overview: {self.overview}, Director: {self.director}"
+        return f"Title: {self.movie_name}, Genre: {self.genre}, Overview: {self.overview}"
     
-    # #Methods
-    # def add_movie(title,genre_id,director_id,overview):
-        
-    #     my_movie=(
-    #         movie_name=title,
-    #         genre=genre.genre_name,
-    #         overview=overview,
-    #         director=f'{director.first_name} {director.last_name}',
-    #         genre_id=genre.id,
-    #         director_id=director.id 
-    #     )
+    #Methods
+    def add_movie(title,genre_id,overview,director_id):
+        genre_instance=session.query(Genre).filter(Genre.id==genre_id).first()
+        director_instance=session.query(Director).filter(Director.id==director_id).first()
+        my_movie=Movie(
+            movie_name=title,
+            genre=genre_instance.genre_name,
+            overview=overview,
+            director=f'{director_instance.first_name} {director_instance.last_name}',
+            genre_id=genre_instance.id,
+            director_id=director_instance.id
+        )
+        session.add(my_movie)
+        session.commit()
+        return my_movie
     
-    
+    #Search movie by title
     def search_by_name(title):
-        return session.query(Movie).filter(Movie.movie_name==title).first()
+        return session.query(Movie).filter(Movie.movie_name==title.lower).first()
 
 #Genre Model
 class Genre(Base):
@@ -68,12 +72,12 @@ class Genre(Base):
     def search_by_genre(genre):
         return session.query(Movie).join(Genre).filter(Genre.genre_name==genre).all()
     
-    #Deletes all movie instances of a given genre
-    def delete_movie(genre):
-        all_movies=session.query(Movie).filter(Movie.genre==genre)
+    #Deletes movie given by name
+    def delete_movie(name):
+        all_movies=session.query(Movie).filter(Movie.movie_name==name)
         all_movies.delete()
-        session.commit
-        return all_movies.all()
+        session.commit()
+        return all_movies.first()
 
 class Director(Base):
     __tablename__='directors'
@@ -91,11 +95,8 @@ class Director(Base):
         return f" First_Name: {self.first_name} Surname: {self.last_name}"
     
     #Methods
+    #display all movies made by one director
     def search_by_director_name(name):
         return session.query(Movie).filter(Movie.director==name).all()
 
 
-#print(Movie.search_by_name('Alien'))
-
-#print(Genre.search_by_genre('Action'))
-print(Director.search_by_director_name('Karen Lee'))
