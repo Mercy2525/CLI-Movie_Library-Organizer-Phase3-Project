@@ -31,12 +31,13 @@ class Movie(Base):
 
     #String representation for Movie
     def __repr__(self):
-        return f"Title: {self.movie_name}, Genre: {self.genre}, Overview: {self.overview}"
+        return f"Title: {self.movie_name}, Genre: {self.genre}, Overview: {self.overview}, Directed By: {self.director}"
     
     #Methods
     def add_movie(title,genre_id,overview,director_id):
         genre_instance=session.query(Genre).filter(Genre.id==genre_id).first()
         director_instance=session.query(Director).filter(Director.id==director_id).first()
+
         my_movie=Movie(
             movie_name=title,
             genre=genre_instance.genre_name,
@@ -51,7 +52,11 @@ class Movie(Base):
     
     #Search movie by title
     def search_by_name(title):
-        return session.query(Movie).filter(Movie.movie_name==title.lower).first()
+        movie= session.query(Movie).filter(Movie.movie_name==title).first()
+        if movie is not None:
+            return movie
+        else:
+            return "Movie not found"
 
 #Genre Model
 class Genre(Base):
@@ -70,7 +75,13 @@ class Genre(Base):
     #Methods
     #Returns all movie instances of a given genre
     def search_by_genre(genre):
-        return session.query(Movie).join(Genre).filter(Genre.genre_name==genre).all()
+        movies = session.query(Movie).join(Genre).filter(Genre.genre_name == genre).all()
+        
+        if not movies:
+            print("No movies found for the genre:", genre)
+        else:
+            return [movie for movie in movies]
+
     
     #Deletes movie given by name
     def delete_movie(name):
