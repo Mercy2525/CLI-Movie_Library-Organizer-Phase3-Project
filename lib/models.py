@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer,String, Table, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base, backref, relationship,sessionmaker
-import random
+
 Base=declarative_base()
 engine=create_engine('sqlite:///movies.db')
 Session=sessionmaker(bind=engine)
@@ -80,7 +80,7 @@ class Genre(Base):
         if not movies:
             print("No movies found for the genre:", genre)
         else:
-            return [movie for movie in movies]
+            return movies
 
     
     #Deletes movie given by name
@@ -108,6 +108,10 @@ class Director(Base):
     #Methods
     #display all movies made by one director
     def search_by_director_name(name):
-        return session.query(Movie).filter(Movie.director==name).all()
+        movies=session.query(Movie).filter(Movie.director==name).all()
+        if not movies:
+            print("No movies found for Director:", name)
+        else:
+            return movies
 
 
