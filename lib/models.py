@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from sqlalchemy import Column, Integer,String, Table, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base, backref, relationship,sessionmaker
 

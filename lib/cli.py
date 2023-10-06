@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # CLI inteface
 from models import Movie,Genre,Director
 
