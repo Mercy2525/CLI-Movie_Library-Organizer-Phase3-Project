@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
-
+import models
+from rich import print
+from rich.console import Console
 # CLI inteface
 from models import Movie,Genre,Director
+thumbs_up_emoji = "\U0001F44D"
+party_popper_emoji = "\U0001F389"
+sad_emoji = "\U0001F622"
+cry_emoji = "\U0001F62D"
 
 def welcome():
-    return print('Hello, Welcome To Your Movie Library Organizer\n')
+    return print('[magenta] Hello, Welcome To Your Movie Library Organizer\n [magenta]')
 
 def main_menu():
-    print('Menu Options:')
+    print('\n [blue] Menu Options:[blue]')
     print('1. Search For Movies')
     print('2. Add a Movie')
     print('3. Delete a Movie')
-    print('4. Exit\n')
+    print('4. [red]Exit\n [red]')
 
 def search_movies():
-    print('Search Movies\n')
+    print('[blue]Search Movies\n[blue]')
     print('Search By:')
     print('1. Title')
     print('2. Genre')
@@ -22,7 +28,7 @@ def search_movies():
    
 
 def exit():
-    print("Thank you for using Movie Library Organizer! Goodbye.")
+    print(f"[magenta]Thank you for using Movie Library Organizer! Goodbye {party_popper_emoji}.[magenta]")
 
 
 if __name__=='__main__':
@@ -48,24 +54,23 @@ if __name__=='__main__':
                 for movie in movies:
                     print(movie)
             else:
-                print('INVALID OPTION !\n')
-                continue
+                print('[yellow]Invalid! Pick a valid option \n[yellow]')
         elif choice =='2':
-            print('Add Movie')
+            print('\n [blue] Add Movie [blue]')
             title=input('Enter the name of your movie: ')
             genre_id=input('Enter genre_id between(1-9): ')
             overview=input('Enter Movie Overview: ')
             director_id=input('Enter director_id between(1-18): ')
             Movie.add_movie(title,genre_id,overview,director_id)
-            print('Movie added successfully!')
+            print(f'[green]Movie added successfully!{thumbs_up_emoji}[green]')
         elif choice =='3':
-            print('Delete a Movie')
+            print('\n [blue]Delete a Movie[blue]')
             to_delete= input('Enter the Movie Title to delete: ')
             Genre.delete_movie(to_delete)
-            print(f"The Movie '{to_delete}' deleted successfully")
+            print(f"[green]The Movie '{to_delete}' deleted successfully{sad_emoji} {cry_emoji}[green]")
         elif choice =='4':
             exit()
             break
         else:
-            print('INVALID OPTION !\n ')
+            print('[yellow]Invalid! Pick a valid Option \n [yellow]')
             

@@ -32,7 +32,7 @@ class Movie(Base):
 
     #String representation for Movie
     def __repr__(self):
-        return f"Title: {self.movie_name}, Genre: {self.genre}, Overview: {self.overview}, Directed By: {self.director}"
+        return f"Title: {self.movie_name},  Genre: {self.genre},  Overview: {self.overview},  Directed By: {self.director}"
     
     #Methods
     def add_movie(title,genre_id,overview,director_id):
