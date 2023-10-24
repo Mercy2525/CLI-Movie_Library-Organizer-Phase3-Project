@@ -50,6 +50,8 @@ This application allows you to catalog your movies, search for them easily, and 
 The Movie Library Organizer is primarily used via the command-line interface (CLI). To start the application, run:
 python model.py or ./main.py(making use of the shebang line)
 
+![main menu](images/welcome.jpg)
+
 ### Searching Movies
 You can search for movies by title, genre, or director:
 
@@ -63,16 +65,23 @@ Enter the genre of the movie you want to search: [Genre Name]
 Select Search Option (1/2/3): 3
 Enter the name of the director you want to search: [Director Name]
 
+![search movie](images/search.jpg)
+
 ### Adding a Movie
 To add a new movie, follow these steps:
 
 Choose option 2 from the main menu.
 Enter the movie details as prompted, including title, genre ID, overview, and director ID.
+
+![add movie](images/add_movie.jpg)
+
 ### Deleting a Movie
 To delete a movie from your collection:
 
 Choose option 3 from the main menu.
 Enter the title of the movie you want to delete.
+
+![delete movie](images/delete.jpg)
 ## Contributing
 We welcome contributions to improve the Movie Library Organizer. To contribute:
 
